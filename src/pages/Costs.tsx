@@ -1,9 +1,9 @@
 import { TrendingUp, Zap, AlertCircle } from 'lucide-react';
 
 const sessions = [
-  { date: 'Mar 17 2026', tokens: '28.1M', cost: '$0.42', tasks: 'InsiderPulse full audit + 10 deploy cycles' },
-  { date: 'Mar 16 2026', tokens: '41.5M', cost: '$0.62', tasks: 'Round 2 fixes + 3 sub-agent runs + admin-diagnostics setup' },
-  { date: 'Mar 16 2026 (AM)', tokens: '16.2M', cost: '$0.24', tasks: 'Priority bug fixes batch 1-3' },
+  { date: 'Mar 18 2026', tokens: '66.5M cache read', cost: '$29.64', tasks: 'Mission Control build + audit verification + ongoing fixes' },
+  { date: 'Mar 17 2026', tokens: '100.6M cache read', cost: '$56.66', tasks: 'Full InsiderPulse audit remediation — 6 audit runs, 90+ commits, 142 edge functions deployed' },
+  { date: 'Mar 16 2026', tokens: '74.8M cache read', cost: '$36.69', tasks: 'Round 2 fixes — sub-agents, priority bug queue, admin-diagnostics setup, cron schedules' },
 ];
 
 const taskCosts = [
@@ -27,10 +27,10 @@ export default function Costs() {
       {/* Top stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 10, margin: '20px 0' }}>
         {[
-          { label: 'SPENT TODAY', val: '$0.42', sub: '28.1M tokens', color: '#22c55e' },
-          { label: 'TOTAL (MAR)', val: '$1.28', sub: '85M tokens total', color: '#3b82f6' },
-          { label: 'PROJECTED (MONTH)', val: '$8.50', sub: 'At current rate', color: '#f59e0b' },
-          { label: 'MODEL', val: 'Sonnet 4-6', sub: '$3/M in · $15/M out', color: '#a855f7' },
+          { label: 'SPENT TODAY', val: '$29.64', sub: '66.5M cache reads', color: '#ef4444' },
+          { label: 'TOTAL (MAR 16-18)', val: '$123.36', sub: '242M tokens processed', color: '#f59e0b' },
+          { label: 'BIGGEST COST', val: 'Cache reads', sub: '$0.30/M — 95% of bill', color: '#a855f7' },
+          { label: 'MODEL', val: 'Sonnet 4-6', sub: '$3/M write · $0.30/M read', color: '#3b82f6' },
         ].map(s => (
           <div key={s.label} className="glass" style={{ padding: '14px 16px', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${s.color}50, transparent)` }} />
@@ -59,8 +59,8 @@ export default function Costs() {
               <div style={{ fontSize: 11, color: 'var(--muted)', lineHeight: 1.4 }}>{s.tasks}</div>
             </div>
           ))}
-          <div style={{ marginTop: 4, padding: '10px 12px', background: 'rgba(59,130,246,0.06)', borderRadius: 8, fontSize: 11, color: 'var(--muted)' }}>
-            <strong style={{ color: '#93c5fd' }}>Note:</strong> Costs are estimated based on Claude Sonnet 4-6 pricing. Actual billing via your Anthropic account.
+          <div style={{ marginTop: 4, padding: '10px 12px', background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 8, fontSize: 11, color: 'var(--muted)', lineHeight: 1.5 }}>
+            <strong style={{ color: '#fca5a5' }}>Why so high?</strong> The InsiderPulse audit required reading 142 edge function files repeatedly across 6 audit runs. Each run reloaded the full codebase into context (cache reads). The sub-agents I spun up each loaded the entire repo. Cache reads at $0.30/M are cheap per token but 242M total adds up fast. Mar 17 alone hit $56 — that was the day of the most intensive work.
           </div>
         </div>
 
